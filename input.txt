@@ -1,0 +1,62 @@
+Add John 418889 1000
+Charge John 100
+Add Maddy 318237 1000
+Credit Maddy 300
+Credit John 50
+Charge Maddy 50
+Credit John 50
+Charge Maddy 50
+Credit Maddy 300
+Credit John 50
+Charge Maddy 50
+Credit John 50
+Add Chris 318234 1000
+Credit John 50
+Charge Maddy 50
+Credit John 50
+Charge Maddy 50
+Credit Maddy 300
+Credit John 50
+Credit John 50
+Charge Maddy 50
+Credit Maddy 300
+Credit John 50
+Charge Maddy 50
+Credit John 50
+Credit John 50
+Add Ian 323237 1000
+Charge Maddy 50
+Credit John 50
+Charge Maddy 50
+Add Gabby 623345 1000
+Charge Gabby 50
+Credit Chris 300
+Credit Ian 50
+Credit Chris 50
+Charge Ian 50
+Credit Gabby 300
+Credit Gabby 50
+Credit Chris 300
+Credit Ian 50
+Credit Chris 50
+Charge Ian 50
+Credit Ian 50
+Credit Chris 50
+Charge Ian 50
+Credit Gabby 300
+Credit Gabby 50
+Credit Chris 300
+Credit Ian 50
+Credit Chris 50
+Credit Gabby 50
+Credit Chris 300
+Credit Ian 50
+Credit Chris 50
+Charge Ian 50
+Charge Wower 50
+Credit Chris 50
+Charge Ian 50
+Credit Gabby 300
+Credit Gabby 50
+Credit Chris 300
+Credit Ian 50
