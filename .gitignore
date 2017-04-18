@@ -2,3 +2,5 @@ magenv/
 *.table
 ccaccounts.db
 interview-assignment.txt
+.idea/
+*.pyc
