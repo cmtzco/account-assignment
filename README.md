@@ -34,11 +34,18 @@ A program written to keep track of credit card accounts and their balances.
 
 ### Usage
 
-- Edit input.txt, file that will house your operations (Ex. Account additions, charges, credits)
+- Edit input.txt, file that will store your operations (Ex. Account additions, charges, credits)
 
 - Run
 
         python run.py < input.py
+
+
+### Sample Output
+
+        python run.py < input.txt
+        John, 418889: 150
+        Maddy, 318237: -750
 
 
 ### Design Patterns
