@@ -13,18 +13,19 @@ class AccountManager:
     # @param account_number int Account number
     # @param balance int Account balance
     # return None
-    def __init__(self, name="", account_number=0, balance_limit=0):
+    def __init__(self, name="", account_number=0, balance=0, balance_limit=0):
         if type(name) == str and type(account_number) == int and type(balance_limit) == int:
-            self.name = name
-            self.account_number = account_number
-            self.balance = balance_limit
-            self.balance_limit = balance_limit
+                self.name = name
+                self.account_number = account_number
+                self.balance = balance
+                self.balance_limit = balance_limit
         else:
             if LOGGING_LEVEL == 'INFO':
                 pass
             elif LOGGING_LEVEL == 'DEBUG':
                 print """Incorrect parameter type, expected types
         name:string, account_number:integer, balance_limit:integer"""
+                pass
 
     # account_check does a count to see if the account name exists
     # @param name string Name of the account owner
@@ -52,11 +53,12 @@ class AccountManager:
                         pass
                     elif LOGGING_LEVEL == 'DEBUG':
                         print "ERROR: This account name/number already exists"
+                        pass
                 else:
                     # inserts the row into the DB with the balance limit as the initial balance.
                     db.accounts.insert(name=self.name,
                                        account_number=self.account_number,
-                                       balance=self.balance_limit,
+                                       balance=self.balance,
                                        balance_limit=self.balance_limit)
                     db.commit()
             else:
@@ -65,12 +67,14 @@ class AccountManager:
                 elif LOGGING_LEVEL == 'DEBUG':
                     print """ERROR: Check your parameters for invalid account number/balance limit value
         (examples. negatives or non-numbers)"""
+                    pass
 
         else:
             if LOGGING_LEVEL == 'INFO':
                 pass
             elif LOGGING_LEVEL == 'DEBUG':
                 print "ERROR: Check your parameters for null name"
+                pass
 
     # charge increases the account balance based on the amount given
     # @param name string Name of the account owner
@@ -78,21 +82,31 @@ class AccountManager:
     # return None
     def charge(self, name, amount):
         if self.account_check(name):
-            # find row that matches the name given to do a check on balance limits
-            for row in db(db.accounts.name == name).select(db.accounts.balance, db.accounts.balance_limit):
-                account_limit = row.balance_limit
-                balance = row.balance
-            # get the sum of the balance and amount charged
-            new_balance = int(amount) + int(balance)
-            # make sure the balance will not exceed the balance limit.
-            if new_balance > account_limit:
+            if amount > 0:
+                # find row that matches the name given to do a check on balance limits
+                for row in db(db.accounts.name == name).select(db.accounts.balance, db.accounts.balance_limit):
+                    account_limit = row.balance_limit
+                    balance = row.balance
+                # get the sum of the balance and amount charged
+                new_balance = int(amount) + int(balance)
+                # make sure the balance will not exceed the balance limit.
+                if new_balance > account_limit:
+                    if LOGGING_LEVEL == 'INFO':
+                        pass
+                    elif LOGGING_LEVEL == 'DEBUG':
+                        print "Not updating due to surpassing account limit"
+                        pass
+                else:
+                    db(db.accounts.name == name).update(balance=new_balance)
+                    db.commit()
+            else:
                 if LOGGING_LEVEL == 'INFO':
                     pass
                 elif LOGGING_LEVEL == 'DEBUG':
-                    print "Not updating due to surpassing account limit"
-            else:
-                db(db.accounts.name == name).update(balance=new_balance)
-                db.commit()
+                    print "Amount is negative or 0, value must be greater than 0"
+                    pass
+        else:
+            pass
 
     # credit decreases the account balance based on the amount given
     # @param name string Name of the account owner
@@ -100,21 +114,25 @@ class AccountManager:
     # return None
     def credit(self, name, amount):
         if self.account_check(name):
-            # find row that matches the name given to do a check on balance limits
-            for row in db(db.accounts.name == name).select(db.accounts.balance, db.accounts.balance_limit):
-                account_limit = row.balance_limit
-                balance = row.balance
-            # get the difference of the balance and amount credited
-            new_balance = int(balance) - int(amount)
-            # make sure the balance will not go into negatives with the amount credited
-            if new_balance < 0:
+            if amount > 0:
+                # find row that matches the name given to do a check on balance limits
+                for row in db(db.accounts.name == name).select(db.accounts.balance, db.accounts.balance_limit):
+                    account_limit = row.balance_limit
+                    balance = row.balance
+                # get the difference of the balance and amount credited
+                new_balance = int(balance) - int(amount)
+                # make sure the balance will not go into negatives with the amount credited
+                db(db.accounts.name == name).update(balance=new_balance)
+                db.commit()
+            else:
                 if LOGGING_LEVEL == 'INFO':
                     pass
                 elif LOGGING_LEVEL == 'DEBUG':
-                    print "Not updating due to surpassing the balance and causing negative"
-            else:
-                db(db.accounts.name == name).update(balance=new_balance)
-                db.commit()
+                    print "Amount is negative or 0, value must be greater than 0"
+                    pass
+        else:
+            pass
+
 
     # balances prints out the accounts and balances in the correct format and in alphabetical order
     # return None

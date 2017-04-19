@@ -1,4 +1,5 @@
 magenv/
+accenv/
 *.table
 ccaccounts.db
 interview-assignment.txt
