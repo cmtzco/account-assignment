@@ -1,4 +1,5 @@
-from pydal import DAL, Field # https://github.com/web2py/pydal
+from pydal import DAL, Field  # https://github.com/web2py/pydal
+
 db = DAL('sqlite://ccaccounts.db')
 db.define_table('accounts',
                 Field('name'),
@@ -7,18 +8,18 @@ db.define_table('accounts',
                 Field('balance_limit', 'integer'))
 LOGGING_LEVEL = 'INFO'
 
-class AccountManager:
 
+class AccountManager:
     # @param name string Name of the account owner
     # @param account_number int Account number
     # @param balance int Account balance
     # return None
     def __init__(self, name="", account_number=0, balance=0, balance_limit=0):
         if type(name) == str and type(account_number) == int and type(balance_limit) == int:
-                self.name = name
-                self.account_number = account_number
-                self.balance = balance
-                self.balance_limit = balance_limit
+            self.name = name
+            self.account_number = account_number
+            self.balance = balance
+            self.balance_limit = balance_limit
         else:
             if LOGGING_LEVEL == 'INFO':
                 pass
@@ -44,11 +45,14 @@ class AccountManager:
     # return None
     def add(self):
         if self.name:  # check for null string in name parameter
-            if self.account_number > 0 and self.balance_limit > 0:  # check that non zero or negative numbers are being passed
-                                                          # in the account number or in the balance limit
+            if self.account_number > 0 and self.balance_limit > 0:
+                # check that non zero or negative numbers are being passed
+                # in the account number or in the balance limit
 
-                # checks if account name and account number already exist in the DB and returns error if the account exists
-                if db(db.accounts.name == self.name).count() > 0 or db(db.accounts.account_number == self.account_number).count() > 0:
+                # checks if account name and account number already exist
+                # in the DB and returns error if the account exists
+                if db(db.accounts.name == self.name).count() > 0 or db(
+                                db.accounts.account_number == self.account_number).count() > 0:
                     if LOGGING_LEVEL == 'INFO':
                         pass
                     elif LOGGING_LEVEL == 'DEBUG':
@@ -117,11 +121,9 @@ class AccountManager:
             if amount > 0:
                 # find row that matches the name given to do a check on balance limits
                 for row in db(db.accounts.name == name).select(db.accounts.balance, db.accounts.balance_limit):
-                    account_limit = row.balance_limit
                     balance = row.balance
                 # get the difference of the balance and amount credited
                 new_balance = int(balance) - int(amount)
-                # make sure the balance will not go into negatives with the amount credited
                 db(db.accounts.name == name).update(balance=new_balance)
                 db.commit()
             else:
@@ -133,16 +135,14 @@ class AccountManager:
         else:
             pass
 
-
     # balances prints out the accounts and balances in the correct format and in alphabetical order
     # return None
     def balances(self):
         for row in db().select(db.accounts.name,
-                                db.accounts.account_number,
-                                db.accounts.balance,
-                                orderby=db.accounts.name):
+                               db.accounts.account_number,
+                               db.accounts.balance,
+                               orderby=db.accounts.name):
             name = row.name
             acct_number = row.account_number
             balance = row.balance
             print "{}, {}: {}".format(name, acct_number, balance)
-

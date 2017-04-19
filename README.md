@@ -25,7 +25,7 @@ A program written to keep track of credit card accounts and their balances.
 
         cd account-assignment
 
-- Install Dependencies
+- Install Dependencies (Depending on your user permissions and operating system you may need to use sudo to run this)
 
         pip install -r requirements.txt
 
