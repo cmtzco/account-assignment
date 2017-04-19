@@ -19,6 +19,8 @@ A program written to keep track of credit card accounts and their balances.
 
 - Clone repo to your desired run location
 
+        git clone https://github.com/cmtzco/account-assignment.git
+
 - Change directory to repo folder (Following command will work if cloned into default folder name)
 
         cd account-assignment
