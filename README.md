@@ -48,16 +48,16 @@ A program written to keep track of credit card accounts and their balances.
         Maddy, 318237: -750
 
 
-### Example lines
+### Example operations
 
 - The following lines are examples that can be used in the **input.txt** file
 
 
-    Add John 418889 1000
-    Charge John 100
-    Add Maddy 318237 1000
-    Credit Maddy 300
-    Credit John 50
+        Add John 418889 1000
+        Charge John 100
+        Add Maddy 318237 1000
+        Credit Maddy 300
+        Credit John 50
 
 
 ### Design Patterns
