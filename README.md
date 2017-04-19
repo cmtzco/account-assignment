@@ -15,7 +15,7 @@ A program written to keep track of credit card accounts and their balances.
 
 ### Installation
 
-** **NOTE:** *Some of these steps may require elevated privileges to run.  Prefix the command with sudo if your account does not have the correct permission set.*
+**NOTE:** *Some of these steps may require elevated privileges to run.  Prefix the command with sudo if your account does not have the correct permission set.*
 
 - Ensure that Python 2.7 and Pip are installed on the device this will be used on.
 
