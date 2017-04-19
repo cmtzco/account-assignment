@@ -29,12 +29,3 @@ for line in fileinput.input():
 
 acct.balances()
 
-
-
-
-# john = AccountManager("John", 123456, 1000)
-# flerm = AccountManager("Schmerpmer", 2341123, 12323)
-# flerm = AccountManager("FlimFlams", 50, 23416)
-# flerm.add()
-# flerm.charge("FlimFlams", 550)
-# flerm.credit("FlimFlams", 21000)
