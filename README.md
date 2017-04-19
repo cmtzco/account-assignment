@@ -60,5 +60,20 @@ A program written to keep track of credit card accounts and their balances.
         Credit John 50
 
 
-### Design Patterns
+## Design Patterns
+
+- Behavorial
+
+    - Command: This was used in run.py to ensure that the application could run via CLI and take the input of a file.
+
+    - Catalog: This was used in Account.py to allow for the multiple operations that needed to be present to ensure account management.
+
+
+### Tradeoffs
+
+- The choice to do a catalog and command pattern allowed for a thicker model of the class that was built and a thinner controller/run script to execute the account functions on the input.
+
+- A full command pattern would have allowed me to build the input directly into the class but that would not have been as clean to manage when trying to validate STDIN.
+
+- A full Catalog would have been added more classes than are needed as well as not allowed for a clean controller/run script.
 
