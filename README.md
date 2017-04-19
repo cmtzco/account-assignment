@@ -13,7 +13,7 @@ A program written to keep track of credit card accounts and their balances.
     - PyDAL: Database ORM used to abstract from writing raw SQL and aid in simple schema creation.
 
 
-### Installation
+## Installation
 
 **NOTE:** *Some of these steps may require elevated privileges to run.  Prefix the command with sudo if your account does not have the correct permission set.*
 
@@ -32,7 +32,7 @@ A program written to keep track of credit card accounts and their balances.
         pip install -r requirements.txt
 
 
-### Usage
+## Usage
 
 - Edit input.txt, file that will store your operations (Ex. Account additions, charges, credits)
 
