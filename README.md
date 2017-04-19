@@ -21,11 +21,11 @@ A program written to keep track of credit card accounts and their balances.
 
 - Change directory to repo folder (Following command will work if cloned into default folder name)
 
-    cd account-assignment
+        cd account-assignment
 
 - Install Dependencies
 
-    pip install -r requirements.txt
+        pip install -r requirements.txt
 
 
 ### Usage
@@ -34,7 +34,7 @@ A program written to keep track of credit card accounts and their balances.
 
 - Run
 
-    python run.py < input.py
+        python run.py < input.py
 
 
 ### Design Patterns
