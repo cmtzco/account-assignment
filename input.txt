@@ -1,10 +1,29 @@
 Add John 418889 1000
-Charge John 100
+Charge John 1000
 Add Maddy 318237 1000
 Credit Maddy 300
 Credit John 50
+Charge John 100
+Charge Maddy 50
+Charge John 100
+Credit Robber 1250
+Charge Jobe 230
+Credit Maddy 300
+Credit John 50
+Charge John 100
 Charge Maddy 50
 Add Robber -1 5000
 Add Jobe 0 1234
+Charge John 100
 Credit Robber 1250
 Charge Jobe 230
+Charge Jobe 230
+Credit John 50
+Credit John 50
+Credit John 50
+Credit John 50
+Credit John 50
+Credit John 50
+Credit John 50
+Credit John 50
+Credit John 50

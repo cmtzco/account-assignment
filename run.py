@@ -15,14 +15,14 @@ for line in fileinput.input():
     elif operation == 'charge' and len(group) == 3:
         name = group[1]
         amount = int(group[2])
-        acct = AccountManager()
-        acct.charge(name, amount)
+        acct = AccountManager(name=name, amount=amount)
+        acct.charge()
 
     elif operation == 'credit' and len(group) == 3:
         name = group[1]
         amount = int(group[2])
-        acct = AccountManager()
-        acct.credit(name, amount)
+        acct = AccountManager(name=name, amount=amount)
+        acct.credit()
 
     else:
         pass
