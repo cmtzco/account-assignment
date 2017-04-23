@@ -1,4 +1,5 @@
 from Connector import Connector
+from Logging import Logger
 from config import *
 
 class AccountManager:
@@ -8,6 +9,7 @@ class AccountManager:
     # return None
     def __init__(self, name="", account_number=0, balance=0, balance_limit=0, amount=0):
         self.connector = Connector()
+        self.log = Logger()
         if amount > 0:
             self.name = name
             self.amount = amount
@@ -18,22 +20,15 @@ class AccountManager:
             self.balance_limit = balance_limit
             self.amount = amount
         else:
-            if LOGGING_LEVEL == 'INFO':
-                pass
-            elif LOGGING_LEVEL == 'DEBUG':
-                print """Incorrect parameter type, expected types
-        name:string, account_number:integer, balance_limit:integer"""
-                pass
+            self.log.log_message('ICPT')
+            pass
 
     # account_check does a count to see if the account name exists
     # @param name string Name of the account owner
     # return Boolean
     def account_check(self, name):
         if self.connector.query_accounts(name):
-            if LOGGING_LEVEL == 'INFO':
-                pass
-            elif LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: Account does not exist"
+            self.log.log_message('NAE')
             return False
         else:
             return True
@@ -45,19 +40,10 @@ class AccountManager:
             if self.account_number > 0 and self.balance_limit > 0:
                 self.connector.add_account(self.name, self.account_number, self.balance, self.balance_limit)
             else:
-                if LOGGING_LEVEL == 'INFO':
-                    pass
-                elif LOGGING_LEVEL == 'DEBUG':
-                    print """ERROR: Check your parameters for invalid account number/balance limit value
-        (examples. negatives or non-numbers)"""
-                    pass
+                self.log.log_message('IANB')
 
         else:
-            if LOGGING_LEVEL == 'INFO':
-                pass
-            elif LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: Check your parameters for null name"
-                pass
+            self.log.log_message('NNP')
 
     # charge increases the account balance based on the amount given
     # @param name string Name of the account owner
@@ -68,11 +54,7 @@ class AccountManager:
             if self.amount > 0:
                 self.connector.charge_account(self.name, self.amount)
             else:
-                if LOGGING_LEVEL == 'INFO':
-                    pass
-                elif LOGGING_LEVEL == 'DEBUG':
-                    print "Amount is negative or 0, value must be greater than 0"
-                    pass
+                self.log.log_message('ANOZ')
         else:
             pass
 
@@ -85,11 +67,7 @@ class AccountManager:
             if self.amount > 0:
                 self.connector.credit_account(self.name, self.amount)
             else:
-                if LOGGING_LEVEL == 'INFO':
-                    pass
-                elif LOGGING_LEVEL == 'DEBUG':
-                    print "Amount is negative or 0, value must be greater than 0"
-                    pass
+                self.log.log_message('ANOZ')
         else:
             pass
 

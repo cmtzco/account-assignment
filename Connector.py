@@ -1,37 +1,29 @@
 from pydal import DAL, Field  # https://github.com/web2py/pydal
+from Logging import Logger
 import config as c
 
 class Connector:
 
     def __init__(self):
         self.conn_type = c.CONNECTOR_TYPE
+        self.log = Logger()
         if self.conn_type == 'DB':
             self.conn = DBConnector()
         else:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: No CONNECTOR_TYPE is set in the config"
-
+            self.log.log_message('NCS')
 
     def query_accounts(self, name):
         if self.conn_type == 'DB':
             return self.conn.check_accounts(name)
         else:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: No CONNECTOR_TYPE is set in the config"
+            self.log.log_message('NCS')
 
 
     def add_account(self, name, account_number, balance, balance_limit):
         if self.conn_type == 'DB':
             self.conn.add_account(name, account_number, balance, balance_limit)
         else:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: No CONNECTOR_TYPE is set in the config"
+            self.log.log_message('NCS')
 
     def remove_record(self):
         pass
@@ -40,28 +32,19 @@ class Connector:
         if self.conn_type == 'DB':
             self.conn.charge_account(name, amount)
         else:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: No CONNECTOR_TYPE is set in the config"
+            self.log.log_message('NCS')
 
     def credit_account(self, name, amount):
         if self.conn_type == 'DB':
             self.conn.credit_account(name, amount)
         else:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: No CONNECTOR_TYPE is set in the config"
+            self.log.log_message('NCS')
 
     def account_balances(self):
         if self.conn_type == 'DB':
             self.conn.account_balances()
         else:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: No CONNECTOR_TYPE is set in the config"
+            self.log.log_message('NCS')
 
 
 class DBConnector:
@@ -73,13 +56,11 @@ class DBConnector:
                         Field('account_number', 'integer'),
                         Field('balance', 'integer'),
                         Field('balance_limit', 'integer'))
+        self.log = Logger()
 
     def check_accounts(self, name):
         if self.db(self.db.accounts.name == name).count() == 0:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: Account does not exist"
+            self.log.log_message('NAE')
             return False
         else:
             return True
@@ -92,11 +73,7 @@ class DBConnector:
         # in the DB and returns error if the account exists
         if self.db(self.db.accounts.name == name).count() > 0 or self.db(
                         self.db.accounts.account_number == account_number).count() > 0:
-            if c.LOGGING_LEVEL == 'INFO':
-                pass
-            elif c.LOGGING_LEVEL == 'DEBUG':
-                print "ERROR: This account name/number already exists"
-                pass
+            self.log.log_message('AAE')
         else:
             # inserts the row into the DB with the balance limit as the initial balance.
             self.db.accounts.insert(name=name,
@@ -117,16 +94,12 @@ class DBConnector:
             new_balance = int(amount) + int(balance)
             # make sure the balance will not exceed the balance limit.
             if new_balance > account_limit:
-                if c.LOGGING_LEVEL == 'INFO':
-                    pass
-                elif c.LOGGING_LEVEL == 'DEBUG':
-                    print "Not updating due to surpassing account limit"
-                    pass
+                self.log.log_message('SAL')
             else:
                 self.db(self.db.accounts.name == name).update(balance=new_balance)
                 self.db.commit()
         else:
-            print "ERROR: Not Charging"
+            self.log.log_message('NBRCH')
             pass
 
     def credit_account(self, name, amount):
@@ -140,7 +113,7 @@ class DBConnector:
             self.db(self.db.accounts.name == name).update(balance=new_balance)
             self.db.commit()
         else:
-            print "ERROR: Not Crediting"
+            self.log.log_message('NBRCR')
             pass
 
     def account_balances(self):
