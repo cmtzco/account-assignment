@@ -144,11 +144,16 @@ class DBConnector:
             pass
 
     def account_balances(self):
-        for row in self.db().select(self.db.accounts.name,
-                               self.db.accounts.account_number,
-                               self.db.accounts.balance,
-                               orderby=self.db.accounts.name):
-            name = row.name
-            acct_number = row.account_number
-            balance = row.balance
-            print "{}, {}: {}".format(name, acct_number, balance)
+        if __name__ == '__main__':
+            for row in self.db().select(self.db.accounts.name,
+                                   self.db.accounts.account_number,
+                                   self.db.accounts.balance,
+                                   orderby=self.db.accounts.name):
+                name = row.name
+                acct_number = row.account_number
+                balance = row.balance
+                print "{}, {}: {}".format(name, acct_number, balance)
+
+
+# TODO
+# Build Flat File connector class for secondary approach at data source
